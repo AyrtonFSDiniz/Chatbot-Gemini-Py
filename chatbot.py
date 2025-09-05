@@ -2,13 +2,13 @@ import os
 from dotenv import load_dotenv
 import google.generativeai as genai
 
-# Carregar variáveis de ambiente
+# Variáveis de ambiente
 load_dotenv()
 
-# Configurar a chave da API do Gemini
+# Chave da API do Gemini
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-# Definir o contexto do negócio
+# Contexto do negócio
 CONTEXT = """
 Você é um assistente virtual especializado em **sistemas logísticos e de supply chain** para empresas de médio e grande porte. 
 Seu papel é responder perguntas de forma técnica, clara e objetiva, ajudando o usuário a entender conceitos, processos e melhores práticas na área. 
@@ -23,16 +23,13 @@ Contexto adicional: você deve assumir que tem acesso a todo o conhecimento nece
 Reduza sua resposta a 500 tokens.
 """
 
-# Função para interagir com a API do Gemini
 def obter_resposta_pergunta(pergunta):
     try:
-        # Usar a API correta do Gemini
+
         model = genai.GenerativeModel('gemini-1.5-flash') 
         
-        # Criar o prompt completo
         prompt_completo = CONTEXT + "\n\nPergunta: " + pergunta
         
-        # Gerar resposta
         response = model.generate_content(
             prompt_completo,
             generation_config=genai.types.GenerationConfig(
@@ -46,7 +43,6 @@ def obter_resposta_pergunta(pergunta):
     except Exception as e:
         return f"Erro ao gerar resposta: {str(e)}"
 
-# Função principal para interação com o usuário
 def iniciar_chatbot():
     print("Olá! Sou seu assistente virtual especializado em sistemas logísticos e de supply chain.")
     print("Você pode fazer até 3 perguntas. Digite 'sair' a qualquer momento para encerrar.")
@@ -58,12 +54,10 @@ def iniciar_chatbot():
         try:
             pergunta = input(f"\nPergunta {4 - perguntas_restantes}: ").strip()
             
-            # Permitir saída antecipada
             if pergunta.lower() in ['sair', 'quit', 'exit']:
                 print("Encerrando o chatbot. Até logo!")
                 break
             
-            # Validar entrada vazia
             if not pergunta:
                 print("Por favor, digite uma pergunta válida.")
                 continue
@@ -81,9 +75,7 @@ def iniciar_chatbot():
         except Exception as e:
             print(f"Erro inesperado: {str(e)}")
             continue
-
-    # print(f"\nDEBUG: Total de respostas coletadas: {len(respostas)}")
-    
+ 
     # Resumo das perguntas e respostas
     if len(respostas) > 0:
 
@@ -102,7 +94,6 @@ def iniciar_chatbot():
     print("\nObrigado por usar o assistente de gerenciamento de estoque!")
 
 if __name__ == "__main__":
-    # Verificar se a chave da API está configurada
     if not os.getenv("GEMINI_API_KEY"):
         print("ERRO: Chave da API do Gemini não encontrada!")
         print("Certifique-se de que o arquivo .env contém: GEMINI_API_KEY=sua_chave_aqui")
