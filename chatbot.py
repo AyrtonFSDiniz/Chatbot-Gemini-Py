@@ -79,7 +79,7 @@ def iniciar_chatbot():
     # Resumo das perguntas e respostas
     if len(respostas) > 0:
 
-        print("REspostas coletadas:", len(respostas))  # Linha de debug;
+        # print("REspostas coletadas:", len(respostas))
 
         print("\n" + "="*50)
         print("RESUMO DAS SUAS PERGUNTAS E RESPOSTAS:")
