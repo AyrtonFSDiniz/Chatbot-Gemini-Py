@@ -11,7 +11,7 @@ Este projeto é um chatbot desenvolvido em Python, especializado em sistemas log
 
 ## Tecnologias Utilizadas:
 
-* **Python 3.x**
+* **Python 3.13.2**
 * **API Gemini** para geração de respostas baseadas em IA
 * **dotenv** para carregamento de variáveis de ambiente (como a chave da API)
 
